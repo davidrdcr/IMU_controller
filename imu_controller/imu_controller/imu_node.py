@@ -7,6 +7,7 @@ import modbus_tk
 import math
 import time
 from transforms3d.euler import euler2quat
+from geometry_msgs.msg import Vector3
 
 
 class ImuNode(Node):
@@ -15,6 +16,7 @@ class ImuNode(Node):
         super().__init__('imu_node')
         self.get_logger().info('Se inició el ImuNode.')
         self.wt_imu = serial.Serial(port = "/dev/ttyUSB0", baudrate = 9600, timeout=0.5)
+        self.angles_pub_ = self.create_publisher(Vector3, 'angles', 10)
 
         if self.wt_imu.isOpen():
             self.get_logger().info('Puerto abierto.')
@@ -38,6 +40,14 @@ class ImuNode(Node):
 
             angulos_grados = [v[i] / 32768.0 * 180 for i in range(0, 3)]
             self.get_logger().info('Ángulo: ' + str(angulos_grados))
+
+            msg = Vector3()
+            msg.x = angulos_grados[0]
+            msg.y = angulos_grados[1]
+            msg.z = angulos_grados[2]
+            self.angles_pub_.publish(msg)
+
+        
 
             
         
