@@ -12,18 +12,18 @@ from sensor_msgs.msg import Imu
 class ImuNode(Node):
 
     def __init__(self):
-        super().__init__('imu_node')
-        #self.get_logger().info('Se inició el ImuNode.')
-        self.timer = self.create_timer(0.1, self.publicar_datos)
-        self.imu_pub = self.create_publisher(Imu, 'imu', 10)
+        super().__init__('imu_node') # Inicializamos el nodo
+        self.get_logger().info('Se inició el ImuNode.')
+        self.timer = self.create_timer(0.1, self.publicar_datos) # Creamos un temporizador para publicar los datos
+        self.imu_pub = self.create_publisher(Imu, 'imu', 10) # Creamos un publicador para los datos del sensor
 
     def publicar_datos(self):
         try: # Intentamos abrir el puerto serie
             self.wt_imu = serial.Serial(port = "/dev/ttyUSB0", baudrate = 9600, timeout=0.5)
-            if self.wt_imu.isOpen():
+            if self.wt_imu.isOpen(): # Si el puerto se abre, se imprime un mensaje de éxito
                 self.get_logger().info('Puerto abierto.')
             else:
-                self.wt_imu.open()
+                self.wt_imu.open() # Si el puerto no se abre, se intenta abrir
                 self.get_logger().info('Puerto abierto.')
 
         except Exception as e: # Si no se puede abrir el puerto, se imprime un mensaje de error y se cierra el programa
@@ -36,7 +36,7 @@ class ImuNode(Node):
             self.master.set_timeout(1)
             self.master.set_verbose(True)
 
-            msg = Imu()
+            msg = Imu() # Creamos un mensaje de tipo Imu
             
             while rclpy.ok():
                 try: # Intentamos leer los registros del sensor
@@ -95,14 +95,14 @@ class ImuNode(Node):
                     
                     msg.orientation_covariance = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
                     msg.angular_velocity_covariance = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-                    self.imu_pub.publish(msg) 
+                    self.imu_pub.publish(msg)
 
 def main(args=None):
     rclpy.init(args=args) # Inicializamos las comunicaciones de ROS
     node = ImuNode() # Creamos un objeto de la clase ImuNode
-    try:
-        rclpy.spin(node) # Mantenemos el nodo en ejecución
-    except KeyboardInterrupt:
+    try: # Intentamos mantener el nodo en ejecución
+        rclpy.spin(node) 
+    except KeyboardInterrupt: # Si se presiona Ctrl+C, se cierra el nodo
         pass
     rclpy.shutdown() # Cerramos las comunicaciones de ROS
 
