@@ -8,11 +8,11 @@
 
 3. Clonar el archivo de github dentro de la carpeta **src**
 	
-	    git clone https://github.com/davidrdcr/IMU_controller.git
+	    cd ~/robot_ws/src && git clone https://github.com/davidrdcr/IMU_controller.git
 	    
-4. Con el terminal abierto en la carpeta **src**, compila el paquete.
+4. Con el terminal abierto en el espacio de trabajo, compila el paquete.
 
-		colcon build
+		 cd ~/robot_ws/ && colcon build
 		
 5. Configure las variables de entorno.
 
@@ -24,25 +24,33 @@
 		cd ~/robot_ws/src/imu_controller/imu_controller
 		sudo chmod 777 *.py
 	
-7. Instale las dependencias.
+7. Instale el pip
+
+		sudo apt install python3-pip
+		
+8. Agrega el directorio al PATH
+
+		`export PATH=$PATH:/home/NOMBREDEUSUARIO/.local/bin`
+
+8. Instale las dependencias.
 
 	    pip install pyserial
 	    pip install modbus_tk
 	    pip install transforms3d
 		
-8. Verifique en qué puerto se encuntra el dispositivo.
+9. Verifique en qué puerto se encuntra el dispositivo.
 
 		ls /dev/ttyUSB* 
 	    
-9. Otorgue permisos al puerto.
+10. Otorgue permisos al puerto.
 
 		sudo chmod 777 /dev/ttyUSB0
  
 
-10. Ejecute el paquete.
+11. Ejecute el paquete.
 
 		ros2 run imu_controller imu_node
 
-11. Los datos se pueden ver haciéndole eco al tópico.
+12. Los datos se pueden ver haciéndole eco al tópico.
 
-		ros2 topic echo /imu		
+		ros2 topic echo /imu
