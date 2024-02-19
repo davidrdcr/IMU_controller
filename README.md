@@ -2,7 +2,7 @@
 
 1. Inside the **src** folder of your workspace clone the package.
 
-git clone https://github.com/davidrdcr/imu_controller.git
+  git clone https://github.com/davidrdcr/imu_controller.git
 
 4. With the terminal open in the workspace, compile the package.
 
