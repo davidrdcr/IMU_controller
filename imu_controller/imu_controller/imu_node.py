@@ -19,7 +19,7 @@ class ImuNode(Node):
 
     def publicar_datos(self):
         try: # Intentamos abrir el puerto serie
-            self.wt_imu = serial.Serial(port = "/dev/ttyUSB0", baudrate = 9600, timeout=0.5)
+            self.wt_imu = serial.Serial(port = "/dev/ttyUSB1", baudrate = 9600, timeout=0.5)
             if self.wt_imu.isOpen(): # Si el puerto se abre, se imprime un mensaje de éxito
                 self.get_logger().info('Puerto abierto.')
             else:
@@ -41,7 +41,7 @@ class ImuNode(Node):
             while rclpy.ok():
                 try: # Intentamos leer los registros del sensor
                     # Lectura de registros
-                    reg = self.master.execute(80, modbus_tk.defines.READ_HOLDING_REGISTERS, 52, 12)
+                    reg = self.master.execute(81, modbus_tk.defines.READ_HOLDING_REGISTERS, 52, 12)
 
                 except Exception as e: # Si no se logra leer los registros, se imprime un mensaje de error y se cierra el programa
                     self.get_logger().info('No se puede leer los registros.')
