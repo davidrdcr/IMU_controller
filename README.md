@@ -1,28 +1,18 @@
+
 # Instalación
-1. Cree un espacio de trabajo en **~/**
 
-	   mkdir ~/robot_ws
-2. Cree una carpeta **src** dentro de su espacio de trabajo.
-
-	    mkdir ~/robot_ws/src
-
-3. Clonar el archivo de github dentro de la carpeta **src**
+1. Dentro de la carpeta **src** de su espacio de trabajo clone el paquete.
 	
-	    cd ~/robot_ws/src && git clone https://github.com/davidrdcr/IMU_controller.git
+	    git clone https://github.com/davidrdcr/imu_controller.git
 	    
 4. Con el terminal abierto en el espacio de trabajo, compila el paquete.
 
-		 cd ~/robot_ws/ && colcon build
+		 colcon build
 		
 5. Configure las variables de entorno.
 
 		echo "source ~/robot_ws/install/setup.sh" >> ~/.bashrc
 		source ~/.bashrc
-
-6. Otorgue permiso a los archivos de python.
-
-		cd ~/robot_ws/src/imu_controller/imu_controller
-		sudo chmod 777 *.py
 	
 7. Instale el pip
 
@@ -32,25 +22,38 @@
 
 		`export PATH=$PATH:/home/NOMBREDEUSUARIO/.local/bin`
 
-8. Instale las dependencias.
+9. Instale las dependencias.
 
-	    pip install pyserial
-	    pip install modbus_tk
-	    pip install transforms3d
+	    pip install pyserial modbus_tk transforms3d
 		
-9. Verifique en qué puerto se encuntra el dispositivo.
+10. Verifique en qué puerto se encuntra el dispositivo.
 
 		ls /dev/ttyUSB* 
 	    
-10. Otorgue permisos al puerto.
+11. Otorgue permisos al puerto.
 
 		sudo chmod 777 /dev/ttyUSB0
  
 
-11. Ejecute el paquete.
+12. Ejecute el paquete.
 
 		ros2 run imu_controller imu_node
 
-12. Los datos se pueden ver haciéndole eco al tópico.
+13. También se puede ejecutar desde los launch files.
+
+		ros2 launch imu_controller _imu_launch.py
+
+16. Los datos se pueden ver haciéndole eco al tópico.
 
 		ros2 topic echo /imu
+
+
+## Para visualizar en Rviz
+
+1. De no tener instalado rviz2
+
+		sudo apt-get install ros-<distribucion>-imu-tools
+
+2. Ejecutar
+
+		ros2 launch imu_controller _imu_rviz_launch.py
