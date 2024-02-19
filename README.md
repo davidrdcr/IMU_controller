@@ -1,59 +1,58 @@
+# Installation
 
-# Instalación
+1. Inside the **src** folder of your workspace clone the package.
 
-1. Dentro de la carpeta **src** de su espacio de trabajo clone el paquete.
-	
-	    git clone https://github.com/davidrdcr/imu_controller.git
-	    
-4. Con el terminal abierto en el espacio de trabajo, compila el paquete.
+git clone https://github.com/davidrdcr/imu_controller.git
 
-		 colcon build
-		
-5. Configure las variables de entorno.
+4. With the terminal open in the workspace, compile the package.
 
-		echo "source ~/robot_ws/install/setup.sh" >> ~/.bashrc
-		source ~/.bashrc
-	
-7. Instale el pip
+colcon build
 
-		sudo apt install python3-pip
-		
-8. Agrega el directorio al PATH
+5. Configure environment variables.
 
-		`export PATH=$PATH:/home/NOMBREDEUSUARIO/.local/bin`
+echo "source ~/robot_ws/install/setup.sh" >> ~/.bashrc
+source ~/.bashrc
 
-9. Instale las dependencias.
+7. Install pip
 
-	    pip install pyserial modbus_tk transforms3d
-		
-10. Verifique en qué puerto se encuntra el dispositivo.
+sudo apt install python3-pip
 
-		ls /dev/ttyUSB* 
-	    
-11. Otorgue permisos al puerto.
+8. Add the directory to the PATH
 
-		sudo chmod 777 /dev/ttyUSB0
+`export PATH=$PATH:/home/USERNAME/.local/bin`
+
+9. Install dependencies.
+
+pip install pyserial modbus_tk transforms3d
+
+10. Check which port the device is on.
+
+ls /dev/ttyUSB*
+
+11. Grant permissions to the port.
+
+sudo chmod 777 /dev/ttyUSB0
  
 
-12. Ejecute el paquete.
+12. Run the package.
 
-		ros2 run imu_controller imu_node
+ros2 run imu_controller imu_node
 
-13. También se puede ejecutar desde los launch files.
+13. It can also be run from launch files.
 
-		ros2 launch imu_controller _imu_launch.py
+ros2 launch imu_controller _imu_launch.py
 
-16. Los datos se pueden ver haciéndole eco al tópico.
+16. The data can be seen echoing the topic.
 
-		ros2 topic echo /imu
+ros2 topic echo /imu
 
 
-## Para visualizar en Rviz
+## To view in Rviz
 
-1. De no tener instalado rviz2
+1. If you do not have rviz2 installed
 
-		sudo apt-get install ros-<distribucion>-imu-tools
+sudo apt-get install ros-<distribution>-imu-tools
 
-2. Ejecutar
+2. Run
 
-		ros2 launch imu_controller _imu_rviz_launch.py
+ros2 launch imu_controller _imu_rviz_launch.py
