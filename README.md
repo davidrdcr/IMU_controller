@@ -1,64 +1,55 @@
 
-# Instalación
+# Installation
 
-1. Dentro de la carpeta **src** de su espacio de trabajo clone el paquete.
+1. Clone the package into the **src** directory of your workspace
 	
 	    git clone https://github.com/davidrdcr/imu_controller.git
 	    
-4. Con el terminal abierto en el espacio de trabajo, compila el paquete.
+2. Compile the package
 
 		 colcon build
 		
-5. Configure las variables de entorno.
+3. Source the setup file to set up the environment
 
 		echo "source ~/robot_ws/install/setup.sh" >> ~/.bashrc
 		source ~/.bashrc
 	
-7. Instale el pip
+4. Install pip and add the directory to path
 
 		sudo apt install python3-pip
-		
-8. Agrega el directorio al PATH
+		`export PATH=$PATH:/home/<user>/.local/bin`
 
-		`export PATH=$PATH:/home/NOMBREDEUSUARIO/.local/bin`
-
-9. Instale las dependencias.
+5. Install the required dependencies 
 
 	    pip install pyserial modbus_tk transforms3d
 		
-10. Verifique en qué puerto se encuntra el dispositivo.
+6. Check the port where the device is located and grant permissions if needed.
 
-		ls /dev/ttyUSB* 
-	    
-11. Otorgue permisos al puerto.
-
+		ls /dev/ttyUSB*
 		sudo chmod 777 /dev/ttyUSB0
+
+# Usage
  
-12. Ejecute el paquete.
+1. Run the package node
 
 		ros2 run imu_controller imu_node
 
-13. También se puede ejecutar desde el launch file
+2. Alternatively, launch the package using the launch file.
 
 		ros2 launch imu_controller _imu_launch.py
 
-16. Los datos se pueden ver haciéndole eco al tópico.
+3. View the data by echoing the topic.
 
-		ros2 topic echo /imu1
-		ros2 topic echo /imu2
+		ros2 topic echo /imu
 
+## Visualizing in Rviz2
 
-## Para visualizar en Rviz
-
-1. De no tener instalado rviz2
+1. Install imu-tools if not already installed
 
 		sudo apt-get install ros-<DISTRO>-imu-tools
 		
-2. Instalar
+2. Open Rviz2
 
-		sudo apt-get install ros-<DISTO>-imu-tools
+		rviz2
 
-3. Ejecutar
-
-		ros2 launch imu_controller _imu_rviz_launch.py
-
+3. Open the rviz configuration 
