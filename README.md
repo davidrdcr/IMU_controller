@@ -40,7 +40,7 @@ Note:
 | Command                                           | Function                                                                                           |
 |---------------------------------------------------|----------------------------------------------------------------------------------------------------|
 | `ros2 launch imu_controller _imu_node_launch.py`      | Publishes IMU data (with address `0x50` and serial port `/dev/ttyUSB0` by default) to the topic `imu`|
-| `ros2 launch imu_controller _two_imu_node_launch.py`  | Publishes data from IMUs with addresses `0x50` and `0x51` to topics `imu1` and `imu2` respectively. Utilizes the default serial port `/dev/ttyUSB0`|
+| `ros2 launch imu_controller _two_imu_nodes_launch.py`  | Publishes data from IMUs with addresses `0x50` and `0x51` to topics `imu1` and `imu2` respectively. Utilizes the default serial port `/dev/ttyUSB0`|
 | `ros2 launch imu_controller _test_imu_node_launch.py` | Controls motor speed based on IMU pitch. This command employs the [vesc package](https://github.com/f1tenth/vesc)|
 
 2. View the data by echoing a topic.
